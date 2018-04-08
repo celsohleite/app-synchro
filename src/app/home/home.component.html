@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+  <span class="toolbar">Synchro APP</span>
+</mat-toolbar>
+
+<div class="example-container mat-elevation-z8">
+<!-- filter -->
+  <div class="container">
+    <div class="filter">
+      <div class="example-header">
+        <mat-form-field class="input">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="icon">
+        <mat-icon matSuffix (click)="hide" color="warn">email</mat-icon>
+    </div>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let usuario"> {{usuario.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let usuario"> {{usuario.nome}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> e-mail </mat-header-cell>
+      <mat-cell *matCellDef="let usuario"> {{usuario.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="telefone">
+      <mat-header-cell *matHeaderCellDef> Telefone </mat-header-cell>
+      <mat-cell *matCellDef="let usuario"> {{usuario.telefone}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endereco">
+        <mat-header-cell *matHeaderCellDef> Endereço </mat-header-cell>
+        <mat-cell *matCellDef="let usuario"> {{usuario.endereco}} </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

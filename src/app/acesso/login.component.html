@@ -1,0 +1,35 @@
+<table width="90%">
+    <tr align="center">
+        <td>
+            <div id="container">
+                <div id="content">
+                    <div>
+                        <div id="logomarca">
+                        </div>
+                        <div>
+                            <mat-form-field>
+                                <input matInput placeholder="Usuário" [type]="'text'">
+                                <mat-icon matSuffix (click)="hide">person</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field>
+                                <input matInput placeholder="Senha" [type]="hide ? 'password' : 'text'">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div style="padding:20px">
+                            <button id="btn_login" [routerLink]="['/home']" mat-button class="btn-form">Entrar</button>
+                        </div>
+                        <div>
+                            <span class="txt_link">
+                                <span (click)="openDialog()">Ainda não sou cadastrado.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
