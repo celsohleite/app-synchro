@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+    <span class="toolbar">Novo Contato</span>
+</mat-toolbar>
+<div class="separator"></div>
+<form class="example-form">
+    <!-- input Nome -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nome Completo" [(ngModel)]="contato.nome" name="nome" required>
+    </mat-form-field>
+
+    <!-- input email -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="e-mail" [(ngModel)]="contato.email" name="email" required>
+    </mat-form-field>
+
+    <!-- input tefone -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Telefone" [(ngModel)]="contato.telefone" name="telefone" required>
+    </mat-form-field>
+
+    <!-- input cep -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Cep" [(ngModel)]="contato.cep" name="cep" required>
+    </mat-form-field>
+
+    <!-- input Endereco -->
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Endereco" [(ngModel)]="contato.endereco" name="endereco" required>
+    </mat-form-field>
+
+    <div class="div_width"></div>
+
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+            <div style="padding:20px">
+                <button id="btn" mat-button [mat-dialog-close]="true" class="btn-form">Cancelar</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div style="padding:20px">
+                <button id="btn" mat-button class="btn-form" (click)="save_onClick()">Salvar</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

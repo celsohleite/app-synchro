@@ -1,6 +1,6 @@
+import { URL_REST } from './../const/url.const';
 import { Component, NgModule, OnInit, Inject } from '@angular/core';
 import { Usuario } from '../model/usuario';
-import { AcessoBusiness } from '../business/acesso.business';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { HttpClient } from '@angular/common/http';
@@ -16,26 +16,25 @@ import { CadastroUsuarioComponent } from '../modal/cadastro-usuario.component';
 
 @NgModule({
     imports: [
-        AcessoBusiness
     ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-    acesso?: AcessoBusiness;
     results: string[];
     user: Usuario;
 
+    result: any;
+    res: any;
+
     constructor(private http: HttpClient,  public dialog: MatDialog) {
-        this.acesso = new AcessoBusiness(http);
+       // this.acesso = new AcessoBusiness(http);
     }
 
     openDialog(): void {
         const dialogRef = this.dialog.open(CadastroUsuarioComponent, {
-            height: '650px',
+            height: '600px',
             width: '600px',
-            data: {
-                animal: 'panda'
-            }
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -44,9 +43,18 @@ export class LoginComponent {
 
     }
 
-    /*
-    doAcesso() {
-        this.acesso.restUsuario();
+    restUsuario() {
+        this.res = this.http.get<any>(URL_REST._url_viacep).subscribe(data => {
+            console.log('URL :' + URL_REST._url_viacep);
+            this.result = data['result'];
+            console.log('retorno : ' + data.logradouro);
+        }, error => {
+            console.log('error');
+        });
     }
-    */
+
+    ngOnInit() {
+        this.restUsuario();
+     }
+
 }

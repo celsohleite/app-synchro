@@ -1,3 +1,4 @@
+import { ContatoComponent } from './modal/cadastro-contato.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +14,7 @@ const APP_ROUTING: Routes = [
 {path : '' , component : LoginComponent },
 {path : 'home' , component : HomeComponent },
 {path : 'login' , component : LoginComponent },
-{path : 'cadastro' , component : CadastroUsuarioComponent }
+{path : 'cadastro' , component : CadastroUsuarioComponent },
+{path : 'contato' , component : ContatoComponent }
 ];
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTING);

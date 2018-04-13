@@ -5,48 +5,44 @@
 <form class="example-form">
     <!-- input Nome -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nome Completo">
+        <input matInput placeholder="Nome Completo" [(ngModel)]="usuario.nome" name="nome" required>
     </mat-form-field>
 
     <!-- input email -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="e-mail">
+        <input matInput placeholder="e-mail" [(ngModel)]="usuario.email" name="email" required>
     </mat-form-field>
-
-    <!-- input telefone -->
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Telefone">
-    </mat-form-field>
-
-    <!-- cep -->
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="CEP">
-    </mat-form-field>
-
-    <!-- endereço -->
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Endereço">
-    </mat-form-field>
-
     <!-- cria usuario -->
     <!-- Usuario -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Usuario">
+        <input matInput placeholder="Usuario" [(ngModel)]="usuario.usuario" name="usuario" required>
     </mat-form-field>
 
     <!-- Senha -->
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Senha">
+    <mat-form-field>
+        <input matInput placeholder="Senha" [type]="hide ? 'text' : 'password'" [(ngModel)]="usuario.senha" name="senha" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
+
+    <div class="div_width"></div>
 
     <!-- Confirma Senha -->
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Confirma Senha">
+    <mat-form-field>
+        <input matInput placeholder="Confirmar Senha" [type]="hide_cfsenha ? 'text' : 'password'" [(ngModel)]="cf_senha" name="cfsenha" required>
+        <mat-icon matSuffix (click)="hide_cfsenha = !hide_cfsenha">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
 
-    <!-- buttons -->
-    <div class="button-row">
-        <button mat-raised-button color="primary">Cancelar</button>
-        <button mat-raised-button color="primary">Salvar</button>
-    </div>
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+            <div style="padding:20px">
+                <button id="btn" mat-button [mat-dialog-close]="true" class="btn-form">Cancelar</button>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div style="padding:20px">
+                <button id="btn" mat-button class="btn-form" (click)="save_onClick()">Salvar</button>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
 </form>

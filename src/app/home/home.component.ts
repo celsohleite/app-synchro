@@ -1,6 +1,9 @@
-import { Component, NgModule } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
-import { Usuario } from '../model/usuario';
+import { CadastroContatoBusiness } from './../business/contato.business';
+import { ContatoComponent } from './../modal/cadastro-contato.component';
+import { HttpClient } from '@angular/common/http';
+import { Contato } from './../model/contato';
+import { Component, NgModule, OnInit, AfterContentInit } from '@angular/core';
+import {  MatDialog } from '@angular/material';
 
 @Component({
     moduleId: module.id,
@@ -12,20 +15,42 @@ import { Usuario } from '../model/usuario';
     imports: []
 })
 
-export class HomeComponent {
-    displayedColumns = ['id', 'nome', 'email', 'telefone', 'endereco'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class HomeComponent implements OnInit, AfterContentInit  {
+    result: any;
+    res: any;
+    business: CadastroContatoBusiness;
+    lista_contato: Contato;
+
+    displayedColumns = ['id', 'nome', 'email', 'telefone', 'cep', 'endereco'];
+    
+    constructor(private http: HttpClient,  public dialog: MatDialog) {
+        this.business = new CadastroContatoBusiness(http);
+        this.lista_contato = {};
+     }
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
+        //this.dataSource.filter = filterValue;
     }
+
+    open_cadastro(): void {
+            const dialogRef = this.dialog.open(ContatoComponent, {
+                height: '600px',
+                width: '600px',
+                disableClose: true
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed');
+            });
+        }
+
+        ngOnInit() {
+           this.business.doGetContatos().subscribe(
+                data => this.lista_contato = data['contato']);
+        }
+
+        ngAfterContentInit () {
+        }
 }
 
-const ELEMENT_DATA: Usuario[] = [
-    { id: 1, nome: 'celso henrique leite', email: 'celsohleite@gmail.com', telefone: '19 991623153', endereco: 'rua xpto' },
-    { id: 2, nome: 'celso henrique ', email: 'celsohleite@gmail.com', telefone: '19 991623153', endereco: 'rua xpto' },
-    { id: 3, nome: ' henrique leite', email: 'celsohleite@gmail.com', telefone: '19 991623153', endereco: 'rua xpto' },
-    { id: 4, nome: 'celso leite', email: 'celsohleite@gmail.com', telefone: '19 991623153', endereco: 'rua xpto' }
-];

@@ -13,39 +13,45 @@
       </div>
     </div>
     <div class="icon">
-        <mat-icon matSuffix (click)="hide" color="warn">email</mat-icon>
+        <mat-icon matSuffix  color="warn">email</mat-icon>
+        <mat-icon matSuffix (click)="open_cadastro()" color="warn">people</mat-icon>
     </div>
   </div>
 
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table #table [dataSource]="lista_contato">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{usuario.id}} </mat-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.id}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="nome">
       <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{usuario.nome}} </mat-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.nome}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef> e-mail </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{usuario.email}} </mat-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.email}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="telefone">
       <mat-header-cell *matHeaderCellDef> Telefone </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{usuario.telefone}} </mat-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.telefone}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cep">
+      <mat-header-cell *matHeaderCellDef> Cep </mat-header-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.cep}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="endereco">
         <mat-header-cell *matHeaderCellDef> Endereço </mat-header-cell>
-        <mat-cell *matCellDef="let usuario"> {{usuario.endereco}} </mat-cell>
+        <mat-cell *matCellDef="let contato"> {{contato.endereco}} </mat-cell>
       </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

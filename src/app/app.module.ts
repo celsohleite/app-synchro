@@ -1,3 +1,4 @@
+import { ContatoComponent } from './modal/cadastro-contato.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -20,20 +21,21 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { LoginComponent } from './acesso/login.component';
 import { HomeComponent } from './home/home.component';
 import { CadastroUsuarioComponent } from './modal/cadastro-usuario.component';
 import { AppComponent } from './app.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { ViaCepClient } from './client/viacep.client';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    ContatoComponent
   ],
   imports: [
     BrowserModule,
