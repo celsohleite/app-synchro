@@ -5,31 +5,73 @@
 <form class="example-form">
     <!-- input Nome -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nome Completo" [(ngModel)]="usuario.nome" name="nome" required>
+        <input matInput placeholder="Nome Completo" [formControl]="nomeFormControl" [(ngModel)]="usuario.nome" name="nome" (blur)="check_nome_blur(nome.value,'','')"
+            #nome>
+        <mat-error *ngIf="nomeFormControl.hasError('nome') && !nomeFormControl.hasError('required')">
+            informe o nome
+        </mat-error>
+        <mat-error *ngIf="nomeFormControl.hasError('required')">
+            nome
+            <strong>obrigatório.</strong>
+        </mat-error>
     </mat-form-field>
 
     <!-- input email -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="e-mail" [(ngModel)]="usuario.email" name="email" required>
+        <input matInput placeholder="e-mail" [formControl]="emailFormControl" [(ngModel)]="usuario.email" name="email" (blur)="check_email_blur('',email.value,'')"
+            #email>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            informe o e-mail
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            e-mail
+            <strong>obrigatório.</strong>
+        </mat-error>
     </mat-form-field>
+
     <!-- cria usuario -->
     <!-- Usuario -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Usuario" [(ngModel)]="usuario.usuario" name="usuario" required>
+        <input matInput placeholder="Usuario" [formControl]="usuarioFormControl" [(ngModel)]="usuario.usuario" name="usuario" (blur)="check_usuario_blur('','',user.value)"
+            #user>
+        <mat-error *ngIf="usuarioFormControl.hasError('usuario') && !usuarioFormControl.hasError('required')">
+            informe o usuário
+        </mat-error>
+        <mat-error *ngIf="usuarioFormControl.hasError('required')">
+            usuário
+            <strong>obrigatório.</strong>
+        </mat-error>
+
     </mat-form-field>
 
     <!-- Senha -->
     <mat-form-field>
-        <input matInput placeholder="Senha" [type]="hide ? 'text' : 'password'" [(ngModel)]="usuario.senha" name="senha" required>
+        <input matInput placeholder="Senha" [formControl]="senhaFormControl" [type]="hide ? 'text' : 'password'" [(ngModel)]="usuario.senha"
+            name="senha" (blur)="habilitar_btn_salvar()" #senha required>
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="senhaFormControl.hasError('senha') && !senhaFormControl.hasError('required')">
+            informe o usuário
+        </mat-error>
+        <mat-error *ngIf="senhaFormControl.hasError('required')">
+            senha <strong>obrigatório.</strong>
+        </mat-error>
+
     </mat-form-field>
 
     <div class="div_width"></div>
 
     <!-- Confirma Senha -->
     <mat-form-field>
-        <input matInput placeholder="Confirmar Senha" [type]="hide_cfsenha ? 'text' : 'password'" [(ngModel)]="cf_senha" name="cfsenha" required>
+        <input matInput placeholder="Confirmar Senha" [formControl]="cfSenhaFormControl" [type]="hide_cfsenha ? 'text' : 'password'"
+            [(ngModel)]="cf_senha" name="cfsenha" #cfsenha (blur)="habilitar_btn_salvar()">
         <mat-icon matSuffix (click)="hide_cfsenha = !hide_cfsenha">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-error *ngIf="cfSenhaFormControl.hasError('cfsenha') && !cfSenhaFormControl.hasError('required')">
+            senha não confere verifique
+        </mat-error>
+        <mat-error *ngIf="cfSenhaFormControl.hasError('required')">
+            confirmação de senha <strong>obrigatório.</strong>
+        </mat-error>
+        
     </mat-form-field>
 
     <mat-grid-list cols="2" rowHeight="2:1">

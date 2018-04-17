@@ -1,11 +1,14 @@
+import { AlertComponent } from './../modal/alert.component';
+import { Usuario } from './../model/usuario';
 import { URL_REST } from './../const/url.const';
-import { Component, NgModule, OnInit, Inject } from '@angular/core';
-import { Usuario } from '../model/usuario';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, NgModule, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CadastroUsuarioComponent } from '../modal/cadastro-usuario.component';
+import { LoginBusiness } from '../business/login.business';
+import { isUndefined } from 'util';
 
 @Component({
     moduleId: module.id,
@@ -21,13 +24,15 @@ import { CadastroUsuarioComponent } from '../modal/cadastro-usuario.component';
 export class LoginComponent implements OnInit {
 
     results: string[];
-    user: Usuario;
-
+    business: LoginBusiness;
     result: any;
     res: any;
+    descricao: any;
+    nome_usuario_logado: string;
+    data_session: string;
 
-    constructor(private http: HttpClient,  public dialog: MatDialog) {
-       // this.acesso = new AcessoBusiness(http);
+    constructor(private http: HttpClient, public dialog: MatDialog, private router: Router) {
+        this.business = new LoginBusiness(http);
     }
 
     openDialog(): void {
@@ -38,23 +43,38 @@ export class LoginComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            console.log('fechar dialog de mensagem');
         });
 
     }
 
-    restUsuario() {
-        this.res = this.http.get<any>(URL_REST._url_viacep).subscribe(data => {
-            console.log('URL :' + URL_REST._url_viacep);
-            this.result = data['result'];
-            console.log('retorno : ' + data.logradouro);
-        }, error => {
-            console.log('error');
-        });
+    efetuar_login(usuario, senha) {
+        console.log(usuario, senha);
+        this.business.doLogarUsuario(usuario, senha).subscribe(data => this.valida_usuario(data['usuario'][0]));
     }
+
+    valida_usuario(nome_usuario: string) {
+
+        try {
+            if (nome_usuario['nome'] !== '') {
+                this.data_session = nome_usuario['_id'];
+                sessionStorage.setItem('id_usuario', this.data_session );
+                this.router.navigate(['/home']);
+            }
+        } catch (e) {
+            const dialogRef = this.dialog.open(AlertComponent, {
+                height: '170px',
+                width: '300px',
+                disableClose: true,
+                data: {descricao: 'Usuario ou senha inválido.'}
+            });
+
+            dialogRef.afterClosed().subscribe(result => console.log('modal fechado.'));
+        }
+    }
+
 
     ngOnInit() {
-        this.restUsuario();
-     }
+    }
 
 }

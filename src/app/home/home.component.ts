@@ -3,7 +3,8 @@ import { ContatoComponent } from './../modal/cadastro-contato.component';
 import { HttpClient } from '@angular/common/http';
 import { Contato } from './../model/contato';
 import { Component, NgModule, OnInit, AfterContentInit } from '@angular/core';
-import {  MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -15,42 +16,59 @@ import {  MatDialog } from '@angular/material';
     imports: []
 })
 
-export class HomeComponent implements OnInit, AfterContentInit  {
+export class HomeComponent implements OnInit, AfterContentInit {
     result: any;
     res: any;
     business: CadastroContatoBusiness;
-    lista_contato: Contato;
+    lista_contato: Contato[];
+    dataSource: any;
 
-    displayedColumns = ['id', 'nome', 'email', 'telefone', 'cep', 'endereco'];
-    
-    constructor(private http: HttpClient,  public dialog: MatDialog) {
+
+    displayedColumns = ['id', 'nome', 'email', 'telefone', 'cep', 'endereco', 'cidade', 'uf'];
+    constructor(private http: HttpClient, public dialog: MatDialog, private router: Router) {
         this.business = new CadastroContatoBusiness(http);
-        this.lista_contato = {};
-     }
+        this.lista_contato = [{}];
+    }
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
-        //this.dataSource.filter = filterValue;
+        this.dataSource.filter = filterValue;
     }
 
     open_cadastro(): void {
-            const dialogRef = this.dialog.open(ContatoComponent, {
-                height: '600px',
-                width: '600px',
-                disableClose: true
-            });
-            dialogRef.afterClosed().subscribe(result => {
-                console.log('The dialog was closed');
-            });
-        }
+        const dialogRef = this.dialog.open(ContatoComponent, {
+            height: '600px',
+            width: '600px',
+            disableClose: true,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            setTimeout(() => {
+                this.load_lista_contato();
+            }, 500);
+            console.log('The dialog was closed');
+        });
+    }
 
-        ngOnInit() {
-           this.business.doGetContatos().subscribe(
-                data => this.lista_contato = data['contato']);
-        }
+    sair_click() {
+        sessionStorage.removeItem('id_usuario');
+        this.router.navigate(['/login']);
+    }
 
-        ngAfterContentInit () {
-        }
+    ngOnInit() {
+        this.load_lista_contato();
+        console.log('session : ', sessionStorage.getItem('id_usuario'));
+    }
+
+    ngAfterContentInit() {
+    }
+
+    load_lista_contato() {
+        this.business.doGetContatos().subscribe(
+            data => this.data_source(data['contato']));
+    }
+
+    data_source(contatos: Contato[]) {
+        this.dataSource = new MatTableDataSource(contatos);
+    }
 }
-

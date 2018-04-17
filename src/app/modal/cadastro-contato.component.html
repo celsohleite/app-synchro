@@ -5,28 +5,81 @@
 <form class="example-form">
     <!-- input Nome -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nome Completo" [(ngModel)]="contato.nome" name="nome" required>
+        <input matInput placeholder="Nome Completo" [formControl]="nomeFormControl" [(ngModel)]="contato.nome" name="nome" required>
+        <mat-error *ngIf="nomeFormControl.hasError('nome') && !nomeFormControl.hasError('required')">
+            informe o nome
+          </mat-error>
+          <mat-error *ngIf="nomeFormControl.hasError('required')">
+            nome <strong>obrigatório.</strong>
+          </mat-error>
     </mat-form-field>
 
     <!-- input email -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="e-mail" [(ngModel)]="contato.email" name="email" required>
+        <input matInput placeholder="email" [formControl]="emailFormControl" name="nome" [(ngModel)]="contato.email" required>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          informe e-mail corretamente
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          e-mail <strong>obrigatório.</strong>
+        </mat-error>
     </mat-form-field>
 
     <!-- input tefone -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Telefone" [(ngModel)]="contato.telefone" name="telefone" required>
+        <input matInput placeholder="Telefone" [formControl]="telefoneFormControl"  [(ngModel)]="contato.telefone" name="telefone" required>
+        <mat-error *ngIf="telefoneFormControl.hasError('telefone') && !telefoneFormControl.hasError('required')">
+            informe o telefone
+          </mat-error>
+          <mat-error *ngIf="telefoneFormControl.hasError('required')">
+            telefone <strong>obrigatório.</strong>
+          </mat-error>
     </mat-form-field>
 
     <!-- input cep -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Cep" [(ngModel)]="contato.cep" name="cep" required>
-    </mat-form-field>
+        <input matInput #cep maxlength="8" placeholder="CEP" [formControl]="cepFormControl"  [(ngModel)]="contato.cep" name="cep" (blur)="preenche_cep(cep.value)" required>
+        <mat-hint align="end">informe o cep sem hífen (-) {{cep.value.length}} / 8</mat-hint>
+        <mat-error *ngIf="cepFormControl.hasError('cep') && !cepFormControl.hasError('required')">
+            informe o cep
+          </mat-error>
+          <mat-error *ngIf="cepFormControl.hasError('required')">
+            cep <strong>obrigatório.</strong>
+          </mat-error>
+      </mat-form-field>
 
     <!-- input Endereco -->
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Endereco" [(ngModel)]="contato.endereco" name="endereco" required>
+        <input matInput placeholder="Endereco" [formControl]="enderecoFormControl"  [(ngModel)]="contato.endereco" name="endereco" required>
+        <mat-error *ngIf="enderecoFormControl.hasError('endereco') && !enderecoFormControl.hasError('required')">
+            informe o endereço
+          </mat-error>
+          <mat-error *ngIf="enderecoFormControl.hasError('required')">
+            endereço <strong>obrigatório.</strong>
+          </mat-error>
     </mat-form-field>
+
+ <!-- input cidade -->
+ <mat-form-field class="example-full-width">
+    <input matInput placeholder="Cidade" [formControl]="cidadeFormControl"  [(ngModel)]="contato.cidade" name="cidade" required>
+    <mat-error *ngIf="cidadeFormControl.hasError('cidade') && !cidadeFormControl.hasError('required')">
+        informe a cidade
+      </mat-error>
+      <mat-error *ngIf="cidadeFormControl.hasError('required')">
+        cidade <strong>obrigatório.</strong>
+      </mat-error>
+</mat-form-field>
+
+ <!-- input uf -->
+ <mat-form-field class="example-full-width">
+    <input matInput placeholder="UF" [formControl]="ufFormControl"  [(ngModel)]="contato.uf" name="uf" required>
+    <mat-error *ngIf="ufFormControl.hasError('uf') && !ufFormControl.hasError('required')">
+        informe a Estado
+      </mat-error>
+      <mat-error *ngIf="ufFormControl.hasError('required')">
+        estado <strong>obrigatório.</strong>
+      </mat-error>
+</mat-form-field>
 
     <div class="div_width"></div>
 
@@ -38,7 +91,7 @@
         </mat-grid-tile>
         <mat-grid-tile>
             <div style="padding:20px">
-                <button id="btn" mat-button class="btn-form" (click)="save_onClick()">Salvar</button>
+                <button id="btn" mat-button class="btn-form" mat-button (click)="save_onClick()" >Salvar</button>
             </div>
         </mat-grid-tile>
     </mat-grid-list>

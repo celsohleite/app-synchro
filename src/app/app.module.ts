@@ -1,7 +1,8 @@
+import { AlertComponent } from './modal/alert.component';
 import { ContatoComponent } from './modal/cadastro-contato.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HttpModule } from '@angular/http';
@@ -28,15 +29,16 @@ import { HomeComponent } from './home/home.component';
 import { CadastroUsuarioComponent } from './modal/cadastro-usuario.component';
 import { AppComponent } from './app.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     CadastroUsuarioComponent,
-    ContatoComponent
+    ContatoComponent,
+    AlertComponent
   ],
+  entryComponents: [AlertComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -53,7 +55,8 @@ import { AppComponent } from './app.component';
     MatRadioModule,
     HttpClientModule,
     RouterModule,
-    routing
+    routing,
+    ReactiveFormsModule
   ],
   exports: [
     MatButtonModule,

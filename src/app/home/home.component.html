@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
-  <span class="toolbar">Synchro APP</span>
+  <span class="toolbar">Synchro APP </span>
 </mat-toolbar>
 
 <div class="example-container mat-elevation-z8">
-<!-- filter -->
+  <!-- filter -->
   <div class="container">
     <div class="filter">
       <div class="example-header">
@@ -13,32 +13,29 @@
       </div>
     </div>
     <div class="icon">
-        <mat-icon matSuffix  color="warn">email</mat-icon>
-        <mat-icon matSuffix (click)="open_cadastro()" color="warn">people</mat-icon>
+      <mat-icon matSuffix color="warn">email</mat-icon>
+      <mat-icon matSuffix (click)="open_cadastro()" color="warn">people</mat-icon>
+      <mat-icon matSuffix (click)="sair_click()" color="warn">exit_to_app</mat-icon>
     </div>
   </div>
 
-  <mat-table #table [dataSource]="lista_contato">
+  <mat-table #table [dataSource]="dataSource">
 
-    <!-- Position Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let contato"> {{contato.id}} </mat-cell>
+      <mat-cell *matCellDef="let i= index "> {{ 1+i }} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="nome">
       <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
       <mat-cell *matCellDef="let contato"> {{contato.nome}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef> e-mail </mat-header-cell>
       <mat-cell *matCellDef="let contato"> {{contato.email}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="telefone">
       <mat-header-cell *matHeaderCellDef> Telefone </mat-header-cell>
       <mat-cell *matCellDef="let contato"> {{contato.telefone}} </mat-cell>
@@ -50,9 +47,19 @@
     </ng-container>
 
     <ng-container matColumnDef="endereco">
-        <mat-header-cell *matHeaderCellDef> Endereço </mat-header-cell>
-        <mat-cell *matCellDef="let contato"> {{contato.endereco}} </mat-cell>
-      </ng-container>
+      <mat-header-cell *matHeaderCellDef> Endereço </mat-header-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.endereco}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cidade">
+      <mat-header-cell *matHeaderCellDef> Cidade </mat-header-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.cidade}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="uf">
+      <mat-header-cell *matHeaderCellDef> UF </mat-header-cell>
+      <mat-cell *matCellDef="let contato"> {{contato.uf}} </mat-cell>
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

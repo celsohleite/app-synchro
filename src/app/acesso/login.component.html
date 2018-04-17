@@ -8,19 +8,19 @@
                         </div>
                         <div>
                             <mat-form-field>
-                                <input matInput placeholder="Usuário" [type]="'text'">
+                                <input matInput placeholder="Usuário" [type]="'text'" #usuario name="usuario">
                                 <mat-icon matSuffix (click)="hide">person</mat-icon>
                             </mat-form-field>
                         </div>
                         <div>
                             <mat-form-field>
-                                <input matInput placeholder="Senha" [type]="hide ? 'text' : 'password'">
+                                <input matInput placeholder="Senha" [type]="hide ? 'text' : 'password'" #senha name="senha">
                                 <mat-icon matSuffix (click)="hide = !hide">{{hide ?  'visibility' : 'visibility_off'}}</mat-icon>
                             </mat-form-field>
                         </div>
 
                         <div style="padding:20px">
-                            <button id="btn_login" [routerLink]="['/home']" mat-button class="btn-form">Entrar</button>
+                            <button id="btn_login" mat-button class="btn-form" (click)="efetuar_login(usuario.value, senha.value)">Entrar</button>
                         </div>
                         <div>
                             <span class="txt_link">
