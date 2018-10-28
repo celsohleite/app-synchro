@@ -1,3 +1,4 @@
+import { URL_REST } from './../const/url.const';
 import { Contato } from './../model/contato';
 import { Usuario } from './../model/usuario';
 import { NgModule, Component, OnInit, Injectable } from '@angular/core';
@@ -12,27 +13,25 @@ export class CadastroContatoBusiness {
         this.contatos = {};
     }
 
-     doSave(contato: Contato): void {
-        const url = 'http://localhost:3001/api/contato/';
-
-            const res = this.http.post(url, contato )
+    doSave(contato: Contato): void {
+        const res = this.http.post(URL_REST._url_contato, contato)
             .subscribe(req => {
                 console.log(req);
             }, error => {
                 console.log('error' + error);
             });
-        }
+    }
 
-        doGetContatos() {
-            const url = 'http://localhost:3001/api/contato/';
-            const parametro = new HttpParams().set('id_usuario', sessionStorage.getItem('id_usuario'));
+    doGetContatos() {
+        const url = URL_REST._url_contato;
+        const parametro = new HttpParams().set('id_usuario', sessionStorage.getItem('id_usuario'));
 
-            return this.http.get(url, {params: parametro});
-        }
+        return this.http.get(url, { params: parametro });
+    }
 
-        doGetEndereco(cep) {
-            const url = 'https://viacep.com.br/ws/' + cep + '/json/';
-            return this.http.get(url);
-        }
+    doGetEndereco(cep) {
+        const url = 'https://viacep.com.br/ws/' + cep + '/json/';
+        return this.http.get(url);
+    }
 }
 

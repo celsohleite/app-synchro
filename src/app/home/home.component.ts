@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, AfterContentInit {
         dialogRef.afterClosed().subscribe(result => {
             setTimeout(() => {
                 this.load_lista_contato();
-            }, 500);
+            }, 1000);
             console.log('The dialog was closed');
         });
     }
@@ -72,3 +72,4 @@ export class HomeComponent implements OnInit, AfterContentInit {
         this.dataSource = new MatTableDataSource(contatos);
     }
 }
+
